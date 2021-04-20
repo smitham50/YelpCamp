@@ -3,8 +3,9 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const ExpressError = require('./utils/ExpressError');
 const campgroundRouter = require('./routes/campgrounds');
-const { campgroundSchema, reviewSchema } = require('./schemas');
+const reviewRouter = require('./routes/reviews');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
@@ -28,12 +29,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
+app.use('/campgrounds', campgroundRouter);
+app.use('/campgrounds/:id/reviews', reviewRouter);
+
 app.get('/', (req, res) => {
     res.render('home');
 });
-
-app.use('/campgrounds', campgroundRouter);
-
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));
