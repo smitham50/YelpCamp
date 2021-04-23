@@ -14,10 +14,12 @@
             </ul>
             <div class="card-body">
                 <a href="/campgrounds" class="card-link btn btn-primary">All Campgrounds</a>
-                <a href="/campgrounds/<%=campground._id%>/edit" class="card-link btn btn-info">Edit Campground</a>
-                <form class="d-inline card-link" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
-                    <button class="btn btn-danger">Delete Camp</button>
-                </form>
+                <% if (currentUser?.username === campground.author.username) { %> 
+                    <a href="/campgrounds/<%=campground._id%>/edit" class="card-link btn btn-info">Edit Campground</a>
+                    <form class="d-inline card-link" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete Camp</button>
+                    </form>
+                <% } %> 
             </div>
             <div class="card-footer text-muted">Updated 2 days ago</div>
         </div>  
