@@ -9,7 +9,7 @@ module.exports.renderNewForm = (req, res) => {
     res.render('campgrounds/new');
 }
 
-module.exports.makeNewCampground = async (req, res) => {
+module.exports.createCampground = async (req, res) => {
     const campground = new Campground(req.body.campground);
     campground.author = req.user._id;
     await campground.save();
@@ -17,7 +17,7 @@ module.exports.makeNewCampground = async (req, res) => {
     res.redirect(`/campgrounds/${campground._id}`);
 }
 
-module.exports.renderCampgroundShow = async (req, res) => {
+module.exports.showCampground = async (req, res) => {
     const campground = await (await Campground.findById(req.params.id).populate({
         path: 'reviews',
         populate: {
