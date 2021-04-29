@@ -21,15 +21,20 @@ const seedDB = async () => {
 
     const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
         const price = Math.floor(Math.random() * 30) + 10;
-        const location = `${sample(cities).city}, ${sample(cities).state}`;
+        const city = sample(cities);
+        const state = sample(cities);
+        const location = `${city.city}, ${state.state}`;
         const campground = new Campground({
             title: `${sample(descriptors)} ${sample(places)}`,
             location,
             geometry: {
                 type: 'Point',
-                coordinates: [-113.1331, 47.0202]
+                coordinates: [
+                    city.longitude,
+                    city.latitude
+                ]
             },
             description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor nulla nam perferendis quia? Distinctio provident debitis ipsum excepturi esse odio dignissimos autem adipisci dolorem optio praesentium, non nostrum, ullam repudiandae!',
             images: [
