@@ -1,7 +1,4 @@
-// const campground = require("../../models/campground");
-
 mapboxgl.accessToken = mapToken;
-console.log(campground)
 let map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/light-v10', // style URL
@@ -21,3 +18,5 @@ new mapboxgl.Marker()
         )
     )
     .addTo(map);
+
+map.addControl(new mapboxgl.NavigationControl());
