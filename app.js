@@ -48,9 +48,11 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }));
 
+const secret = process.env.SECRET || 'temporary';
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
-    secret: 'temporary',
+    secret,
     touchAfter: 24 * 60 * 60
 });
 
@@ -61,7 +63,7 @@ store.on('error', function(e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret: 'temporary',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
